@@ -8,7 +8,7 @@ facebookInit.$inject = [`$rootScope`];
 
 export function facebookInit($rootScope) {
   // Load the facebook SDK asynchronously
-  (function(){
+  (() => {
     // If we've already installed the SDK, we're done
     if (document.getElementById('facebook-jssdk')) {return;}
 

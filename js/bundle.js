@@ -76,6 +76,8 @@
 
 	var SplashController = (function () {
 	  function SplashController($scope, $facebook) {
+	    var _this = this;
+
 	    _classCallCheck(this, SplashController);
 
 	    this.$facebook = $facebook;
@@ -83,8 +85,8 @@
 
 	    this.$scope.isLoggedIn = false;
 	    this.$scope.login = function () {
-	      this.$facebook.login().then(function () {
-	        this.refresh();
+	      _this.$facebook.login().then(function () {
+	        _this.refresh(_this.$scope);
 	      });
 	    };
 	    this.refresh();
@@ -92,12 +94,12 @@
 
 	  _createClass(SplashController, [{
 	    key: "refresh",
-	    value: function refresh() {
+	    value: function refresh($scope) {
 	      this.$facebook.api("/me").then(function (response) {
-	        this.$scope.welcomeMsg = "Welcome " + response.name;
-	        this.$scope.isLoggedIn = true;
+	        $scope.welcomeMsg = "Welcome  " + response.name;
+	        $scope.isLoggedIn = true;
 	      }, function (err) {
-	        this.$scope.welcomeMsg = "Please log in";
+	        $scope.welcomeMsg = "Please log in";
 	      });
 	    }
 	  }]);

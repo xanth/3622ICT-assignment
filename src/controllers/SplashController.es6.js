@@ -4,23 +4,24 @@ export default class SplashController {
         this.$scope = $scope;
 
         this.$scope.isLoggedIn = false;
-        this.$scope.login = function() {
-          this.$facebook.login().then(function() {
-            this.refresh();
+        this.$scope.login = () => {
+          this.$facebook.login().then(() => {
+            this.refresh(this.$scope);
           });
         }
         this.refresh();
     }
 
-    refresh() {
+    refresh($scope) {
       this.$facebook.api("/me").then(
-      function(response) {
-        this.$scope.welcomeMsg = "Welcome " + response.name;
-        this.$scope.isLoggedIn = true;
-      },
-      function(err) {
-        this.$scope.welcomeMsg = "Please log in";
-      });
+        (response) => {
+          $scope.welcomeMsg = `Welcome  ${response.name}`;
+          $scope.isLoggedIn = true;
+        },
+        (err) => {
+          $scope.welcomeMsg = "Please log in";
+        }
+      );
     }
 }
 
