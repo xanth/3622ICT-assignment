@@ -5,7 +5,7 @@ function clouds() {
   return {
     restrict: 'AEC',
     scope: {},
-    templateUrl: `./templates/clouds.html`
+    template: require('../../templates/clouds.html')
   }
 }
 

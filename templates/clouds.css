@@ -10,6 +10,8 @@ body {
 }
 
 #clouds{
+	position:absolute;
+	z-index:auto;
 	padding: 100px 0;
 	background: #c9dbe9;
 	background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
