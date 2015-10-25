@@ -19,6 +19,12 @@ export default function routes($stateProvider, $urlRouterProvider) {
       controller: 'AlbumController',
       controllerAs: 'album'
     })
+    .state('posts', {
+      url: '/posts',
+      template: require('../../views/posts.html'),
+      controller: 'PostsController',
+      controllerAs: 'posts'
+    })
     .state('about', {
       url: '/about',
       template: require('../../views/about.html')

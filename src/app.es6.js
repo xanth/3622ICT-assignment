@@ -15,6 +15,7 @@ import FacebookGraph   from './services/FacebookGraph.es6.js';
 import SplashController from './controllers/SplashController.es6.js';
 import HomeController   from './controllers/HomeController.es6.js';
 import AlbumController  from './controllers/AlbumController.es6.js';
+import PostsController  from './controllers/PostsController.es6.js';
 
 angular.module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox'])
 .run( facebookInit )
@@ -24,4 +25,5 @@ angular.module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLigh
 .service('FacebookGraph', FacebookGraph)
 .controller('SplashController', SplashController)
 .controller('HomeController', HomeController)
-.controller('AlbumController', AlbumController);
+.controller('AlbumController', AlbumController)
+.controller('PostsController', AlbumController);

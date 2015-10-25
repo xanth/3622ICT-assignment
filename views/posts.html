@@ -1,0 +1,11 @@
+<div class="row">
+  <div ng-repeat="message in posts.messages">
+    
+    <figure>
+      <a ng-click="album.OpenLightboxModal($index)">
+        <img ng-src="{{image.thumb.source}}" alt="{{image.name}}"></img>
+      </a>
+      <figcaption>{{image.name}}</figcaption>
+    </figure>
+  </div>
+</div>

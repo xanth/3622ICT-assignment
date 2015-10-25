@@ -31,7 +31,7 @@ export default class FacebookGraph {
   }
 
   images(album, height, ret){
-    this.$facebook.api(`/${album}/photos`, 'GET', {"fields":"images,name"})
+    this.$facebook.api(`/${album}/photos`, 'GET', {"fields":"likes,images,name"})
       .then((images) => {
         let filteredImages = _(images.data).map((image) => {
           return {
@@ -68,7 +68,7 @@ export default class FacebookGraph {
       });
   }
 
-  feed(filter){
+  posts(filter, ret){
 
   }
 }
