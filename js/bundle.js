@@ -89,7 +89,7 @@
 	        _this.refresh(_this.$scope);
 	      });
 	    };
-	    this.refresh();
+	    this.refresh(this.$scope);
 	  }
 
 	  _createClass(SplashController, [{

@@ -9,7 +9,7 @@ export default class SplashController {
             this.refresh(this.$scope);
           });
         }
-        this.refresh();
+        this.refresh(this.$scope);
     }
 
     refresh($scope) {
