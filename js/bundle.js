@@ -46,10 +46,14 @@
 
 	'use strict';
 
-	var _controllersSplashControllerEs6Js = __webpack_require__(7);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _ = __webpack_require__(1);
-	var angular = __webpack_require__(3);
+	var _controllersSplashControllerEs6Js = __webpack_require__(1);
+
+	var _controllersSplashControllerEs6Js2 = _interopRequireDefault(_controllersSplashControllerEs6Js);
+
+	var _ = __webpack_require__(2);
+	var angular = __webpack_require__(4);
 	var ngFacebook = __webpack_require__(6);
 
 	angular.module('app', ['ngFacebook']).config(function ($facebookProvider) {
@@ -75,10 +79,59 @@
 	    // Insert the Facebook JS SDK into the DOM
 	    firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
 	  })();
-	}).controller('SplashController', _controllersSplashControllerEs6Js.SplashController);
+	}).controller('SplashController', _controllersSplashControllerEs6Js2['default']);
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var SplashController = (function () {
+	  function SplashController($scope, $facebook) {
+	    _classCallCheck(this, SplashController);
+
+	    this.$scope = $scope;
+	    this.$scope.isLoggedIn = false;
+	    this.$scope.login = function () {
+	      $facebook.login().then(function () {
+	        this.refresh();
+	      });
+	    };
+
+	    this.refresh();
+	  }
+
+	  _createClass(SplashController, [{
+	    key: "refresh",
+	    value: function refresh() {
+	      $facebook.api("/me").then(function (response) {
+	        this.$scope.welcomeMsg = "Welcome " + response.name;
+	        this.$scope.isLoggedIn = true;
+	      }, function (err) {
+	        this.$scope.welcomeMsg = "Please log in";
+	      });
+	    }
+	  }]);
+
+	  return SplashController;
+	})();
+
+	exports["default"] = SplashController;
+
+	SplashController.$inject = ['$scope', '$facebook'];
+	module.exports = exports["default"];
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -12433,10 +12486,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module), (function() { return this; }())))
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -12452,15 +12505,15 @@
 
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(4);
+	__webpack_require__(5);
 	module.exports = angular;
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	/**
@@ -41369,7 +41422,6 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 5 */,
 /* 6 */
 /***/ function(module, exports) {
 
@@ -41618,45 +41670,6 @@
 	  }])
 	;
 
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var SplashController = function SplashController($scope, $facebook) {
-	  _classCallCheck(this, SplashController);
-
-	  this.$scope = $scope;
-	  $scope.isLoggedIn = false;
-	  $scope.login = function () {
-	    $facebook.login().then(function () {
-	      refresh();
-	    });
-	  };
-	  function refresh() {
-	    $facebook.api("/me").then(function (response) {
-	      $scope.welcomeMsg = "Welcome " + response.name;
-	      $scope.isLoggedIn = true;
-	    }, function (err) {
-	      $scope.welcomeMsg = "Please log in";
-	    });
-	  }
-
-	  refresh();
-	};
-
-	exports["default"] = SplashController;
-
-	SplashController.$inject = ['$scope', '$facebook'];
-	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);

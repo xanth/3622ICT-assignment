@@ -2,10 +2,9 @@ const _           = require('lodash');
 const angular     = require('angular');
 const ngFacebook  = require('ng-facebook');
 
-import { SplashController } from './controllers/SplashController.es6.js';
+import SplashController from './controllers/SplashController.es6.js';
 
-angular
-.module('app', ['ngFacebook']).config( ($facebookProvider) => {
+angular.module('app', ['ngFacebook']).config( ($facebookProvider) => {
   $facebookProvider.setAppId(`904181319668743`);
 })
 .run( function( $rootScope ) {
