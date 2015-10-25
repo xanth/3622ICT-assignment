@@ -1,0 +1,16 @@
+{
+  "name": "3622ICT-assignment",
+  "version": "0.0.0",
+  "homepage": "https://github.com/xanth/3622ICT-assignment",
+  "authors": [
+    "Rhys <rhys@xanth.io>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

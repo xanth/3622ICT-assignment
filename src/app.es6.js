@@ -6,8 +6,6 @@ import ngFacebook   from 'ng-facebook';
 require('angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css');
 require('angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js');
 
-require("bootstrap-webpack");
-
 import clouds from './directives/clouds/clouds.es6.js';
 
 import { facebookInit, facebookConfig } from './config/facebook.es6.js';

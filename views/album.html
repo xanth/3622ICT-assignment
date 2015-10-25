@@ -2,7 +2,7 @@
   Album
   <div ng-repeat="image in album.images">
     <figure>
-      <a>
+      <a ng-click="album.OpenLightboxModal($index)">
         <img ng-src="{{image.thumb.source}}" alt="{{image.name}}"></img>
       </a>
       <figcaption>{{image.name}}</figcaption>
