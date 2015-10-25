@@ -1,0 +1,18 @@
+<!doctype html>
+<html ng-app="app">
+    <head>
+        <script src="js/bundle.js"></script>
+    </head>
+    <body ng-controller="SplashController">
+      <div class="container">
+          <h4>
+              {{welcomeMsg}}
+          </h4>
+          <button type="button" ng-click="login()" ng-hide="isLoggedIn" class="btn btn-default navbar-btn">
+              Login
+          </button>
+      </div>
+      <div id="fb-root">
+      </div>
+    </body>
+</html>

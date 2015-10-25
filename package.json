@@ -7,5 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "babel-loader": "^5.3.2",
+    "lodash": "^3.10.1",
+    "ng-facebook": "^0.1.6"
+  }
 }

@@ -1,37 +1,31 @@
-const _         = require('lodash');
-const angular   = require('angular');
-const facebook  = require('angular-facebook');
+const _           = require('lodash');
+const angular     = require('angular');
+const ngFacebook  = require('ng-facebook');
 
-angular.module('app', ['facebook'])
+import { SplashController } from './controllers/SplashController.es6.js';
 
-  .config(function(FacebookProvider) {
-     // Set your appId through the setAppId method or
-     // use the shortcut in the initialize method directly.
-     FacebookProvider.init('YOUR_APP_ID');
-  })
+angular
+.module('app', ['ngFacebook']).config( ($facebookProvider) => {
+  $facebookProvider.setAppId(`904181319668743`);
+})
+.run( function( $rootScope ) {
+  // Load the facebook SDK asynchronously
+  (function(){
+    // If we've already installed the SDK, we're done
+    if (document.getElementById('facebook-jssdk')) {return;}
 
-  .controller('authenticationCtrl', function($scope, Facebook) {
+    // Get the first script element, which we'll use to find the parent node
+    var firstScriptElement = document.getElementsByTagName('script')[0];
 
-    $scope.login = function() {
-      // From now on you can use the Facebook service just as Facebook api says
-      Facebook.login(function(response) {
-        // Do something with response.
-      });
-    };
+    // Create a new script element and set its id
+    var facebookJS = document.createElement('script');
+    facebookJS.id = 'facebook-jssdk';
 
-    $scope.getLoginStatus = function() {
-      Facebook.getLoginStatus(function(response) {
-        if(response.status === 'connected') {
-          $scope.loggedIn = true;
-        } else {
-          $scope.loggedIn = false;
-        }
-      });
-    };
+    // Set the new script's source to the source of the Facebook JS SDK
+    facebookJS.src = 'https://connect.facebook.net/en_US/all.js';
 
-    $scope.me = function() {
-      Facebook.api('/me', function(response) {
-        $scope.user = response;
-      });
-    };
-  });
+    // Insert the Facebook JS SDK into the DOM
+    firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+   }());
+})
+.controller('SplashController', SplashController);
