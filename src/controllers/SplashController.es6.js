@@ -9,7 +9,6 @@ export default class SplashController {
             this.refresh();
           });
         }
-
         this.refresh();
     }
 

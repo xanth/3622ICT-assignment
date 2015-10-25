@@ -52,34 +52,13 @@
 
 	var _controllersSplashControllerEs6Js2 = _interopRequireDefault(_controllersSplashControllerEs6Js);
 
+	var _configEs6Js = __webpack_require__(7);
+
 	var _ = __webpack_require__(2);
 	var angular = __webpack_require__(4);
 	var ngFacebook = __webpack_require__(6);
 
-	angular.module('app', ['ngFacebook']).config(function ($facebookProvider) {
-	  $facebookProvider.setAppId('904181319668743');
-	}).run(function ($rootScope) {
-	  // Load the facebook SDK asynchronously
-	  (function () {
-	    // If we've already installed the SDK, we're done
-	    if (document.getElementById('facebook-jssdk')) {
-	      return;
-	    }
-
-	    // Get the first script element, which we'll use to find the parent node
-	    var firstScriptElement = document.getElementsByTagName('script')[0];
-
-	    // Create a new script element and set its id
-	    var facebookJS = document.createElement('script');
-	    facebookJS.id = 'facebook-jssdk';
-
-	    // Set the new script's source to the source of the Facebook JS SDK
-	    facebookJS.src = 'https://connect.facebook.net/en_US/all.js';
-
-	    // Insert the Facebook JS SDK into the DOM
-	    firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
-	  })();
-	}).controller('SplashController', _controllersSplashControllerEs6Js2['default']);
+	angular.module('app', ['ngFacebook']).config(_configEs6Js.facebookConfig).run(_configEs6Js.facebookInit).controller('SplashController', _controllersSplashControllerEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -108,7 +87,6 @@
 	        this.refresh();
 	      });
 	    };
-
 	    this.refresh();
 	  }
 
@@ -41672,6 +41650,48 @@
 	  }])
 	;
 
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.facebookConfig = facebookConfig;
+	exports.facebookInit = facebookInit;
+	facebookConfig.$inject = ['$facebookProvider'];
+
+	function facebookConfig($facebookProvider) {
+	  $facebookProvider.setAppId('904181319668743');
+	}
+
+	facebookInit.$inject = ['$rootScope'];
+
+	function facebookInit($rootScope) {
+	  // Load the facebook SDK asynchronously
+	  (function () {
+	    // If we've already installed the SDK, we're done
+	    if (document.getElementById('facebook-jssdk')) {
+	      return;
+	    }
+
+	    // Get the first script element, which we'll use to find the parent node
+	    var firstScriptElement = document.getElementsByTagName('script')[0];
+
+	    // Create a new script element and set its id
+	    var facebookJS = document.createElement('script');
+	    facebookJS.id = 'facebook-jssdk';
+
+	    // Set the new script's source to the source of the Facebook JS SDK
+	    facebookJS.src = 'https://connect.facebook.net/en_US/all.js';
+
+	    // Insert the Facebook JS SDK into the DOM
+	    firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+	  })();
+	}
 
 /***/ }
 /******/ ]);
