@@ -88,6 +88,7 @@
 
 	__webpack_require__(27);
 	__webpack_require__(29);
+	__webpack_require__(32);
 
 	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']);
 
@@ -42533,6 +42534,12 @@
 	    template: __webpack_require__(17),
 	    controller: 'AlbumController',
 	    controllerAs: 'album'
+	  }).state('about', {
+	    url: '/about',
+	    template: __webpack_require__(30)
+	  }).state('docs', {
+	    url: '/docs',
+	    template: __webpack_require__(31)
 	  });
 	}
 
@@ -42543,19 +42550,19 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n    <h4>\n        {{splash.welcomeMsg}}\n    </h4>\n    <button type=\"button\" ng-click=\"splash.login()\" ng-hide=\"splash.isLoggedIn\" class=\"btn btn-default navbar-btn\">\n        Login\n    </button>\n</div>\n";
+	module.exports = "<div class=\"row\">\n    <h4>\n        {{splash.welcomeMsg}}\n    </h4>\n    <button type=\"button\" ng-click=\"splash.login()\" ng-hide=\"splash.isLoggedIn\" class=\"btn btn-default navbar-btn\">\n        Login\n    </button>\n</div>\n";
 
 /***/ },
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  Home\n  <div ng-repeat=\"album in home.albums\">\n    <figure>\n      <a ui-sref=\"album({ album: {{album.id}} })\">\n        <img ng-src=\"{{album.cover_photo.pic.source}}\" alt=\"{{album.cover_photo.name}}\"></img>\n      </a>\n      <figcaption>{{album.location}}</figcaption>\n    </figure>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div ng-repeat=\"album in home.albums\">\n    <figure>\n      <a ui-sref=\"album({ album: {{album.id}} })\">\n        <img ng-src=\"{{album.cover_photo.pic.source}}\" alt=\"{{album.cover_photo.name}}\"></img>\n      </a>\n      <figcaption>{{album.location}}</figcaption>\n    </figure>\n  </div>\n</div>\n";
 
 /***/ },
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  Album\n  <div ng-repeat=\"image in album.images\">\n    <figure>\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\"></img>\n      </a>\n      <figcaption>{{image.name}}</figcaption>\n    </figure>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div ng-repeat=\"image in album.images\">\n    <figure>\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\"></img>\n      </a>\n      <figcaption>{{image.name}}</figcaption>\n    </figure>\n  </div>\n</div>\n";
 
 /***/ },
 /* 18 */
@@ -57370,6 +57377,58 @@
 	    }
 	  };
 	}]);
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"row\">\n  Home\n  <div ng-repeat=\"album in home.albums\">\n    <figure>\n      <a ui-sref=\"album({ album: {{album.id}} })\">\n        <img ng-src=\"{{album.cover_photo.pic.source}}\" alt=\"{{album.cover_photo.name}}\"></img>\n      </a>\n      <figcaption>{{album.location}}</figcaption>\n    </figure>\n  </div>\n</div>\n";
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"row\">\n  <h1>Documentation</h1>\n  <h3>Author: Rhys Williams</h3>\n  <p>The Javascript libraries used in the creation of the DMS website are as follows</p>\n  <ul>\n    <li>AngularJs</li>\n    <li>Angular.Ui</li>\n    <li>Ng Facebook</li>\n    <li>Angular Bootstrap Lightbox</li>\n    <li>Facebook API Libary</li>\n    <li>Bootstrap</li>\n    <li>Webpack</li>\n    <li>Lodash</li>\n  </ul>\n  <p>All javascript written for this assignment conforms to the most up to date JavaScript specification (EcmaScript 6+) however no current browser supports the litany of new and exciting features in EcmaScript 6. To enable myself to use the newest standard I've used WebPack to transpile all ES6 JavaScript to ES5 so that it may be run in modern browsers</p>\n</div>\n";
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(33);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./main.css", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./main.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rootContainer {\n  padding-top: 90px;\n}\n", ""]);
+
+	// exports
 
 
 /***/ }

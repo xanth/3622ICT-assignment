@@ -7,6 +7,11 @@ module.exports = {
         path: __dirname + "/js",
         filename: 'bundle.js'
     },
+    plugins: [
+      // new webpack.optimize.UglifyJsPlugin({minimize: true}),
+      // new webpack.optimize.DedupePlugin(),
+      // new webpack.optimize.AggressiveMergingPlugin()
+    ],
     module: {
         loaders: [
             {

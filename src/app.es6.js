@@ -5,6 +5,7 @@ import ngFacebook   from 'ng-facebook';
 
 require('angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css');
 require('angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js');
+require('../styles/main.css');
 
 import { facebookInit, facebookConfig } from './config/facebook.es6.js';
 import   routes                         from './config/uirouter.es6.js';
