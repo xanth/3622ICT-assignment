@@ -1,28 +1,32 @@
 export default class SplashController {
-    constructor($scope, $facebook) {
+    constructor($facebook, $state) {
         this.$facebook = $facebook;
-        this.$scope = $scope;
+        this.$state    = $state;
 
-        this.$scope.isLoggedIn = false;
-        this.$scope.login = () => {
-          this.$facebook.login().then(() => {
-            this.refresh(this.$scope);
-          });
-        }
-        this.refresh(this.$scope);
+        this.welcomeMsg = 'Hi';
+        this.isLoggedIn = false;
+        this.refresh();
     }
 
-    refresh($scope) {
+    login() {
+      this.$facebook.login().then(() => {
+        this.refresh();
+      });
+    }
+
+    refresh() {
       this.$facebook.api("/me").then(
         (response) => {
-          $scope.welcomeMsg = `Welcome  ${response.name}`;
-          $scope.isLoggedIn = true;
+          this.welcomeMsg = `Welcome  ${response.name}`;
+          this.isLoggedIn = true;
+          this.$state.go('home')
         },
         (err) => {
-          $scope.welcomeMsg = "Please log in";
+          this.welcomeMsg = "Please log in";
+          this.isLoggedIn = false;
         }
       );
     }
 }
 
-SplashController.$inject = ['$scope', '$facebook'];
+SplashController.$inject = ['$facebook', '$state'];

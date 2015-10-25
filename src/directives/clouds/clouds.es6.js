@@ -1,11 +1,11 @@
 import angular from 'angular';
-require("../../templates/clouds.css");
+require("./clouds.css");
 
 function clouds() {
   return {
     restrict: 'AEC',
     scope: {},
-    template: require('../../templates/clouds.html')
+    template: require('./clouds.html')
   }
 }
 

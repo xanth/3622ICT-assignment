@@ -1,0 +1,11 @@
+<div>
+  Home
+  <div ng-repeat="album in home.albums">
+    <figure>
+      <a ui-sref="album({ album: {{album.id}} })">
+        <img ng-src="{{album.cover_photo.pic.source}}" alt="{{album.cover_photo.name}}"></img>
+      </a>
+      <figcaption>{{album.location}}</figcaption>
+    </figure>
+  </div>
+</div>
