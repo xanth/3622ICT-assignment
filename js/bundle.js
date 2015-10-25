@@ -64,10 +64,6 @@
 
 	var _ngFacebook2 = _interopRequireDefault(_ngFacebook);
 
-	var _directivesCloudsCloudsEs6Js = __webpack_require__(7);
-
-	var _directivesCloudsCloudsEs6Js2 = _interopRequireDefault(_directivesCloudsCloudsEs6Js);
-
 	var _configFacebookEs6Js = __webpack_require__(13);
 
 	var _configUirouterEs6Js = __webpack_require__(14);
@@ -93,7 +89,7 @@
 	__webpack_require__(27);
 	__webpack_require__(29);
 
-	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox', 'clouds']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']);
+	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -42154,79 +42150,9 @@
 
 
 /***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _angular = __webpack_require__(1);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	__webpack_require__(8);
-
-	function clouds() {
-	  return {
-	    restrict: 'AEC',
-	    scope: {},
-	    template: __webpack_require__(12)
-	  };
-	}
-
-	exports['default'] = _angular2['default'].module('clouds', []).directive('clouds', clouds).name;
-	module.exports = exports['default'];
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	'use strict';
-
-	var content = __webpack_require__(9);
-	if (typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if (content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if (false) {
-		// When the styles change, update the <style> tags
-		if (!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./clouds.css", function () {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./clouds.css");
-				if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function () {
-			update();
-		});
-	}
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(10)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "/*Lets start with the cloud formation rather*/\n\n/*The container will also serve as the SKY*/\n\n*{ margin: 0; padding: 0;}\n\nbody {\n\t/*To hide the horizontal scroller appearing during the animation*/\n\toverflow: hidden;\n}\n\n#clouds{\n\tposition:absolute;\n\tz-index:auto;\n\tpadding: 100px 0;\n\tbackground: #c9dbe9;\n\tbackground: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);\n\tbackground: -linear-gradient(top, #c9dbe9 0%, #fff 100%);\n\tbackground: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%);\n}\n\n/*Time to finalise the cloud shape*/\n.cloud {\n\twidth: 200px; height: 60px;\n\tbackground: #fff;\n\n\tborder-radius: 200px;\n\t-moz-border-radius: 200px;\n\t-webkit-border-radius: 200px;\n\n\tposition: relative;\n}\n\n.cloud:before, .cloud:after {\n\tcontent: '';\n\tposition: absolute;\n\tbackground: #fff;\n\twidth: 100px; height: 80px;\n\tposition: absolute; top: -15px; left: 10px;\n\n\tborder-radius: 100px;\n\t-moz-border-radius: 100px;\n\t-webkit-border-radius: 100px;\n\n\t-webkit-transform: rotate(30deg);\n\ttransform: rotate(30deg);\n\t-moz-transform: rotate(30deg);\n}\n\n.cloud:after {\n\twidth: 120px; height: 120px;\n\ttop: -55px; left: auto; right: 15px;\n}\n\n/*Time to animate*/\n.x1 {\n\t-webkit-animation: moveclouds 15s linear infinite;\n\t-moz-animation: moveclouds 15s linear infinite;\n\t-o-animation: moveclouds 15s linear infinite;\n}\n\n/*variable speed, opacity, and position of clouds for realistic effect*/\n.x2 {\n\tleft: 200px;\n\n\t-webkit-transform: scale(0.6);\n\t-moz-transform: scale(0.6);\n\ttransform: scale(0.6);\n\topacity: 0.6; /*opacity proportional to the size*/\n\n\t/*Speed will also be proportional to the size and opacity*/\n\t/*More the speed. Less the time in 's' = seconds*/\n\t-webkit-animation: moveclouds 25s linear infinite;\n\t-moz-animation: moveclouds 25s linear infinite;\n\t-o-animation: moveclouds 25s linear infinite;\n}\n\n.x3 {\n\tleft: -250px; top: -200px;\n\n\t-webkit-transform: scale(0.8);\n\t-moz-transform: scale(0.8);\n\ttransform: scale(0.8);\n\topacity: 0.8; /*opacity proportional to the size*/\n\n\t-webkit-animation: moveclouds 20s linear infinite;\n\t-moz-animation: moveclouds 20s linear infinite;\n\t-o-animation: moveclouds 20s linear infinite;\n}\n\n.x4 {\n\tleft: 470px; top: -250px;\n\n\t-webkit-transform: scale(0.75);\n\t-moz-transform: scale(0.75);\n\ttransform: scale(0.75);\n\topacity: 0.75; /*opacity proportional to the size*/\n\n\t-webkit-animation: moveclouds 18s linear infinite;\n\t-moz-animation: moveclouds 18s linear infinite;\n\t-o-animation: moveclouds 18s linear infinite;\n}\n\n.x5 {\n\tleft: -150px; top: -150px;\n\n\t-webkit-transform: scale(0.8);\n\t-moz-transform: scale(0.8);\n\ttransform: scale(0.8);\n\topacity: 0.8; /*opacity proportional to the size*/\n\n\t-webkit-animation: moveclouds 20s linear infinite;\n\t-moz-animation: moveclouds 20s linear infinite;\n\t-o-animation: moveclouds 20s linear infinite;\n}\n\n@-webkit-keyframes moveclouds {\n\t0% {margin-left: 1000px;}\n\t100% {margin-left: -1000px;}\n}\n@-moz-keyframes moveclouds {\n\t0% {margin-left: 1000px;}\n\t100% {margin-left: -1000px;}\n}\n@-o-keyframes moveclouds {\n\t0% {margin-left: 1000px;}\n\t100% {margin-left: -1000px;}\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
+/* 7 */,
+/* 8 */,
+/* 9 */,
 /* 10 */
 /***/ function(module, exports) {
 
@@ -42537,14 +42463,7 @@
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	module.exports = "<div id=\"clouds\">\n\t<div class=\"cloud x1\"></div>\n\t<!-- Time for multiple clouds to dance around -->\n\t<div class=\"cloud x2\"></div>\n\t<div class=\"cloud x3\"></div>\n\t<div class=\"cloud x4\"></div>\n\t<div class=\"cloud x5\"></div>\n</div>\n";
-
-/***/ },
+/* 12 */,
 /* 13 */
 /***/ function(module, exports) {
 
