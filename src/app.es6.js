@@ -10,14 +10,17 @@ require('../styles/main.css');
 import { facebookInit, facebookConfig } from './config/facebook.es6.js';
 import   routes                         from './config/uirouter.es6.js';
 
+import   spin                           from './directives/spin/spin.es6.js';
+
 import FacebookGraph   from './services/FacebookGraph.es6.js';
 
 import SplashController from './controllers/SplashController.es6.js';
 import HomeController   from './controllers/HomeController.es6.js';
 import AlbumController  from './controllers/AlbumController.es6.js';
 import PostsController  from './controllers/PostsController.es6.js';
+import MenuController   from './controllers/MenuController.es6.js';
 
-angular.module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox'])
+angular.module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox', 'spin'])
 .run( facebookInit )
 .config( facebookConfig )
 .config( routes )
@@ -26,4 +29,5 @@ angular.module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLigh
 .controller('SplashController', SplashController)
 .controller('HomeController', HomeController)
 .controller('AlbumController', AlbumController)
-.controller('PostsController', PostsController);
+.controller('PostsController', PostsController)
+.controller('MenuController', MenuController);

@@ -27,12 +27,13 @@
           </button>
           <a class="navbar-brand" ui-sref="home">DMS Travel</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse" ui-view="MenuController">
           <ul class="nav navbar-nav">
             <li><a ui-sref="home">Home</a></li>
             <li><a ui-sref="posts">Visitor Posts</a></li>
             <li><a ui-sref="about">About</a></li>
             <li><a ui-sref="docs">Documentation</a></li>
+            <li><a ng-click="logout()">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

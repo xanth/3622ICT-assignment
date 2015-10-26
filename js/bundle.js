@@ -70,6 +70,10 @@
 
 	var _configUirouterEs6Js2 = _interopRequireDefault(_configUirouterEs6Js);
 
+	var _directivesSpinSpinEs6Js = __webpack_require__(34);
+
+	var _directivesSpinSpinEs6Js2 = _interopRequireDefault(_directivesSpinSpinEs6Js);
+
 	var _servicesFacebookGraphEs6Js = __webpack_require__(15);
 
 	var _servicesFacebookGraphEs6Js2 = _interopRequireDefault(_servicesFacebookGraphEs6Js);
@@ -90,11 +94,15 @@
 
 	var _controllersPostsControllerEs6Js2 = _interopRequireDefault(_controllersPostsControllerEs6Js);
 
+	var _controllersMenuControllerEs6Js = __webpack_require__(36);
+
+	var _controllersMenuControllerEs6Js2 = _interopRequireDefault(_controllersMenuControllerEs6Js);
+
 	__webpack_require__(25);
 	__webpack_require__(29);
 	__webpack_require__(30);
 
-	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']).controller('PostsController', _controllersPostsControllerEs6Js2['default']);
+	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox', 'spin']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']).controller('PostsController', _controllersPostsControllerEs6Js2['default']).controller('MenuController', _controllersMenuControllerEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -42246,7 +42254,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n    <h4>\n        {{splash.welcomeMsg}}\n    </h4>\n    <button type=\"button\" ng-click=\"splash.login()\" ng-hide=\"splash.isLoggedIn\" class=\"btn btn-default navbar-btn\">\n        Login\n    </button>\n</div>\n";
+	module.exports = "<div class=\"row\">\n    <h4>\n        {{splash.welcomeMsg}}\n    </h4>\n    <button type=\"button\" ng-click=\"splash.login()\" ng-hide=\"splash.isLoggedIn\" class=\"btn btn-default navbar-btn\">\n        Login\n        <spin></spin>\n    </button>\n</div>\n";
 
 /***/ },
 /* 10 */
@@ -57606,6 +57614,120 @@
 
 	// exports
 
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(33);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(28)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../css-loader/index.js!./spinkit.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./spinkit.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(27)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*\n *  Usage:\n *\n *    <div class=\"sk-rotating-plane\"></div>\n *\n */\n.sk-rotating-plane {\n  width: 40px;\n  height: 40px;\n  background-color: #333;\n  margin: 40px auto;\n  -webkit-animation: sk-rotatePlane 1.2s infinite ease-in-out;\n          animation: sk-rotatePlane 1.2s infinite ease-in-out; }\n\n@-webkit-keyframes sk-rotatePlane {\n  0% {\n    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);\n            transform: perspective(120px) rotateX(0deg) rotateY(0deg); }\n  50% {\n    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);\n            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }\n  100% {\n    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);\n            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }\n\n@keyframes sk-rotatePlane {\n  0% {\n    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);\n            transform: perspective(120px) rotateX(0deg) rotateY(0deg); }\n  50% {\n    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);\n            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }\n  100% {\n    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);\n            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-double-bounce\">\n *      <div class=\"sk-child sk-double-bounce1\"></div>\n *      <div class=\"sk-child sk-double-bounce2\"></div>\n *    </div>\n *\n */\n.sk-double-bounce {\n  width: 40px;\n  height: 40px;\n  position: relative;\n  margin: 40px auto; }\n  .sk-double-bounce .sk-child {\n    width: 100%;\n    height: 100%;\n    border-radius: 50%;\n    background-color: #333;\n    opacity: 0.6;\n    position: absolute;\n    top: 0;\n    left: 0;\n    -webkit-animation: sk-doubleBounce 2s infinite ease-in-out;\n            animation: sk-doubleBounce 2s infinite ease-in-out; }\n  .sk-double-bounce .sk-double-bounce2 {\n    -webkit-animation-delay: -1.0s;\n            animation-delay: -1.0s; }\n\n@-webkit-keyframes sk-doubleBounce {\n  0%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes sk-doubleBounce {\n  0%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-wave\">\n *      <div class=\"sk-rect sk-rect1\"></div>\n *      <div class=\"sk-rect sk-rect2\"></div>\n *      <div class=\"sk-rect sk-rect3\"></div>\n *      <div class=\"sk-rect sk-rect4\"></div>\n *      <div class=\"sk-rect sk-rect5\"></div>\n *    </div>\n *\n */\n.sk-wave {\n  margin: 40px auto;\n  width: 50px;\n  height: 40px;\n  text-align: center;\n  font-size: 10px; }\n  .sk-wave .sk-rect {\n    background-color: #333;\n    height: 100%;\n    width: 6px;\n    display: inline-block;\n    -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;\n            animation: sk-waveStretchDelay 1.2s infinite ease-in-out; }\n  .sk-wave .sk-rect1 {\n    -webkit-animation-delay: -1.2s;\n            animation-delay: -1.2s; }\n  .sk-wave .sk-rect2 {\n    -webkit-animation-delay: -1.1s;\n            animation-delay: -1.1s; }\n  .sk-wave .sk-rect3 {\n    -webkit-animation-delay: -1s;\n            animation-delay: -1s; }\n  .sk-wave .sk-rect4 {\n    -webkit-animation-delay: -0.9s;\n            animation-delay: -0.9s; }\n  .sk-wave .sk-rect5 {\n    -webkit-animation-delay: -0.8s;\n            animation-delay: -0.8s; }\n\n@-webkit-keyframes sk-waveStretchDelay {\n  0%, 40%, 100% {\n    -webkit-transform: scaleY(0.4);\n            transform: scaleY(0.4); }\n  20% {\n    -webkit-transform: scaleY(1);\n            transform: scaleY(1); } }\n\n@keyframes sk-waveStretchDelay {\n  0%, 40%, 100% {\n    -webkit-transform: scaleY(0.4);\n            transform: scaleY(0.4); }\n  20% {\n    -webkit-transform: scaleY(1);\n            transform: scaleY(1); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-wandering-cubes\">\n *      <div class=\"sk-cube sk-cube1\"></div>\n *      <div class=\"sk-cube sk-cube2\"></div>\n *    </div>\n *\n */\n.sk-wandering-cubes {\n  margin: 40px auto;\n  width: 40px;\n  height: 40px;\n  position: relative; }\n  .sk-wandering-cubes .sk-cube {\n    background-color: #333;\n    width: 10px;\n    height: 10px;\n    position: absolute;\n    top: 0;\n    left: 0;\n    -webkit-animation: sk-wanderingCube 1.8s ease-in-out -1.8s infinite both;\n            animation: sk-wanderingCube 1.8s ease-in-out -1.8s infinite both; }\n  .sk-wandering-cubes .sk-cube2 {\n    -webkit-animation-delay: -0.9s;\n            animation-delay: -0.9s; }\n\n@-webkit-keyframes sk-wanderingCube {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  25% {\n    -webkit-transform: translateX(30px) rotate(-90deg) scale(0.5);\n            transform: translateX(30px) rotate(-90deg) scale(0.5); }\n  50% {\n    /* Hack to make FF rotate in the right direction */\n    -webkit-transform: translateX(30px) translateY(30px) rotate(-179deg);\n            transform: translateX(30px) translateY(30px) rotate(-179deg); }\n  50.1% {\n    -webkit-transform: translateX(30px) translateY(30px) rotate(-180deg);\n            transform: translateX(30px) translateY(30px) rotate(-180deg); }\n  75% {\n    -webkit-transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5);\n            transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5); }\n  100% {\n    -webkit-transform: rotate(-360deg);\n            transform: rotate(-360deg); } }\n\n@keyframes sk-wanderingCube {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  25% {\n    -webkit-transform: translateX(30px) rotate(-90deg) scale(0.5);\n            transform: translateX(30px) rotate(-90deg) scale(0.5); }\n  50% {\n    /* Hack to make FF rotate in the right direction */\n    -webkit-transform: translateX(30px) translateY(30px) rotate(-179deg);\n            transform: translateX(30px) translateY(30px) rotate(-179deg); }\n  50.1% {\n    -webkit-transform: translateX(30px) translateY(30px) rotate(-180deg);\n            transform: translateX(30px) translateY(30px) rotate(-180deg); }\n  75% {\n    -webkit-transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5);\n            transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5); }\n  100% {\n    -webkit-transform: rotate(-360deg);\n            transform: rotate(-360deg); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-spinner sk-spinner-pulse\"></div>\n *\n */\n.sk-spinner-pulse {\n  width: 40px;\n  height: 40px;\n  margin: 40px auto;\n  background-color: #333;\n  border-radius: 100%;\n  -webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;\n          animation: sk-pulseScaleOut 1s infinite ease-in-out; }\n\n@-webkit-keyframes sk-pulseScaleOut {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n@keyframes sk-pulseScaleOut {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-chasing-dots\">\n *      <div class=\"sk-child sk-dot1\"></div>\n *      <div class=\"sk-child sk-dot2\"></div>\n *    </div>\n *\n */\n.sk-chasing-dots {\n  margin: 40px auto;\n  width: 40px;\n  height: 40px;\n  position: relative;\n  text-align: center;\n  -webkit-animation: sk-chasingDotsRotate 2s infinite linear;\n          animation: sk-chasingDotsRotate 2s infinite linear; }\n  .sk-chasing-dots .sk-child {\n    width: 60%;\n    height: 60%;\n    display: inline-block;\n    position: absolute;\n    top: 0;\n    background-color: #333;\n    border-radius: 100%;\n    -webkit-animation: sk-chasingDotsBounce 2s infinite ease-in-out;\n            animation: sk-chasingDotsBounce 2s infinite ease-in-out; }\n  .sk-chasing-dots .sk-dot2 {\n    top: auto;\n    bottom: 0;\n    -webkit-animation-delay: -1s;\n            animation-delay: -1s; }\n\n@-webkit-keyframes sk-chasingDotsRotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes sk-chasingDotsRotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@-webkit-keyframes sk-chasingDotsBounce {\n  0%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes sk-chasingDotsBounce {\n  0%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-three-bounce\">\n *      <div class=\"sk-child sk-bounce1\"></div>\n *      <div class=\"sk-child sk-bounce2\"></div>\n *      <div class=\"sk-child sk-bounce3\"></div>\n *    </div>\n *\n */\n.sk-three-bounce {\n  margin: 40px auto;\n  width: 80px;\n  text-align: center; }\n  .sk-three-bounce .sk-child {\n    width: 20px;\n    height: 20px;\n    background-color: #333;\n    border-radius: 100%;\n    display: inline-block;\n    -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;\n            animation: sk-three-bounce 1.4s ease-in-out 0s infinite both; }\n  .sk-three-bounce .sk-bounce1 {\n    -webkit-animation-delay: -0.32s;\n            animation-delay: -0.32s; }\n  .sk-three-bounce .sk-bounce2 {\n    -webkit-animation-delay: -0.16s;\n            animation-delay: -0.16s; }\n\n@-webkit-keyframes sk-three-bounce {\n  0%, 80%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  40% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes sk-three-bounce {\n  0%, 80%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  40% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-circle\">\n *      <div class=\"sk-circle1 sk-child\"></div>\n *      <div class=\"sk-circle2 sk-child\"></div>\n *      <div class=\"sk-circle3 sk-child\"></div>\n *      <div class=\"sk-circle4 sk-child\"></div>\n *      <div class=\"sk-circle5 sk-child\"></div>\n *      <div class=\"sk-circle6 sk-child\"></div>\n *      <div class=\"sk-circle7 sk-child\"></div>\n *      <div class=\"sk-circle8 sk-child\"></div>\n *      <div class=\"sk-circle9 sk-child\"></div>\n *      <div class=\"sk-circle10 sk-child\"></div>\n *      <div class=\"sk-circle11 sk-child\"></div>\n *      <div class=\"sk-circle12 sk-child\"></div>\n *    </div>\n *\n */\n.sk-circle {\n  margin: 40px auto;\n  width: 40px;\n  height: 40px;\n  position: relative; }\n  .sk-circle .sk-child {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    left: 0;\n    top: 0; }\n  .sk-circle .sk-child:before {\n    content: '';\n    display: block;\n    margin: 0 auto;\n    width: 15%;\n    height: 15%;\n    background-color: #333;\n    border-radius: 100%;\n    -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;\n            animation: sk-circleBounceDelay 1.2s infinite ease-in-out both; }\n  .sk-circle .sk-circle2 {\n    -webkit-transform: rotate(30deg);\n        -ms-transform: rotate(30deg);\n            transform: rotate(30deg); }\n  .sk-circle .sk-circle3 {\n    -webkit-transform: rotate(60deg);\n        -ms-transform: rotate(60deg);\n            transform: rotate(60deg); }\n  .sk-circle .sk-circle4 {\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  .sk-circle .sk-circle5 {\n    -webkit-transform: rotate(120deg);\n        -ms-transform: rotate(120deg);\n            transform: rotate(120deg); }\n  .sk-circle .sk-circle6 {\n    -webkit-transform: rotate(150deg);\n        -ms-transform: rotate(150deg);\n            transform: rotate(150deg); }\n  .sk-circle .sk-circle7 {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .sk-circle .sk-circle8 {\n    -webkit-transform: rotate(210deg);\n        -ms-transform: rotate(210deg);\n            transform: rotate(210deg); }\n  .sk-circle .sk-circle9 {\n    -webkit-transform: rotate(240deg);\n        -ms-transform: rotate(240deg);\n            transform: rotate(240deg); }\n  .sk-circle .sk-circle10 {\n    -webkit-transform: rotate(270deg);\n        -ms-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  .sk-circle .sk-circle11 {\n    -webkit-transform: rotate(300deg);\n        -ms-transform: rotate(300deg);\n            transform: rotate(300deg); }\n  .sk-circle .sk-circle12 {\n    -webkit-transform: rotate(330deg);\n        -ms-transform: rotate(330deg);\n            transform: rotate(330deg); }\n  .sk-circle .sk-circle2:before {\n    -webkit-animation-delay: -1.1s;\n            animation-delay: -1.1s; }\n  .sk-circle .sk-circle3:before {\n    -webkit-animation-delay: -1s;\n            animation-delay: -1s; }\n  .sk-circle .sk-circle4:before {\n    -webkit-animation-delay: -0.9s;\n            animation-delay: -0.9s; }\n  .sk-circle .sk-circle5:before {\n    -webkit-animation-delay: -0.8s;\n            animation-delay: -0.8s; }\n  .sk-circle .sk-circle6:before {\n    -webkit-animation-delay: -0.7s;\n            animation-delay: -0.7s; }\n  .sk-circle .sk-circle7:before {\n    -webkit-animation-delay: -0.6s;\n            animation-delay: -0.6s; }\n  .sk-circle .sk-circle8:before {\n    -webkit-animation-delay: -0.5s;\n            animation-delay: -0.5s; }\n  .sk-circle .sk-circle9:before {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .sk-circle .sk-circle10:before {\n    -webkit-animation-delay: -0.3s;\n            animation-delay: -0.3s; }\n  .sk-circle .sk-circle11:before {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .sk-circle .sk-circle12:before {\n    -webkit-animation-delay: -0.1s;\n            animation-delay: -0.1s; }\n\n@-webkit-keyframes sk-circleBounceDelay {\n  0%, 80%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  40% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes sk-circleBounceDelay {\n  0%, 80%, 100% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  40% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-cube-grid\">\n *      <div class=\"sk-cube sk-cube1\"></div>\n *      <div class=\"sk-cube sk-cube2\"></div>\n *      <div class=\"sk-cube sk-cube3\"></div>\n *      <div class=\"sk-cube sk-cube4\"></div>\n *      <div class=\"sk-cube sk-cube5\"></div>\n *      <div class=\"sk-cube sk-cube6\"></div>\n *      <div class=\"sk-cube sk-cube7\"></div>\n *      <div class=\"sk-cube sk-cube8\"></div>\n *      <div class=\"sk-cube sk-cube9\"></div>\n *    </div>\n *\n */\n.sk-cube-grid {\n  width: 40px;\n  height: 40px;\n  margin: 40px auto;\n  /*\n   * Spinner positions\n   * 1 2 3\n   * 4 5 6\n   * 7 8 9\n   */ }\n  .sk-cube-grid .sk-cube {\n    width: 33%;\n    height: 33%;\n    background-color: #333;\n    float: left;\n    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;\n            animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; }\n  .sk-cube-grid .sk-cube1 {\n    -webkit-animation-delay: 0.2s;\n            animation-delay: 0.2s; }\n  .sk-cube-grid .sk-cube2 {\n    -webkit-animation-delay: 0.3s;\n            animation-delay: 0.3s; }\n  .sk-cube-grid .sk-cube3 {\n    -webkit-animation-delay: 0.4s;\n            animation-delay: 0.4s; }\n  .sk-cube-grid .sk-cube4 {\n    -webkit-animation-delay: 0.1s;\n            animation-delay: 0.1s; }\n  .sk-cube-grid .sk-cube5 {\n    -webkit-animation-delay: 0.2s;\n            animation-delay: 0.2s; }\n  .sk-cube-grid .sk-cube6 {\n    -webkit-animation-delay: 0.3s;\n            animation-delay: 0.3s; }\n  .sk-cube-grid .sk-cube7 {\n    -webkit-animation-delay: 0.0s;\n            animation-delay: 0.0s; }\n  .sk-cube-grid .sk-cube8 {\n    -webkit-animation-delay: 0.1s;\n            animation-delay: 0.1s; }\n  .sk-cube-grid .sk-cube9 {\n    -webkit-animation-delay: 0.2s;\n            animation-delay: 0.2s; }\n\n@-webkit-keyframes sk-cubeGridScaleDelay {\n  0%, 70%, 100% {\n    -webkit-transform: scale3D(1, 1, 1);\n            transform: scale3D(1, 1, 1); }\n  35% {\n    -webkit-transform: scale3D(0, 0, 1);\n            transform: scale3D(0, 0, 1); } }\n\n@keyframes sk-cubeGridScaleDelay {\n  0%, 70%, 100% {\n    -webkit-transform: scale3D(1, 1, 1);\n            transform: scale3D(1, 1, 1); }\n  35% {\n    -webkit-transform: scale3D(0, 0, 1);\n            transform: scale3D(0, 0, 1); } }\n\n/*\n *  Usage:\n *\n *    <div class=\"sk-fading-circle\">\n *      <div class=\"sk-circle1 sk-circle\"></div>\n *      <div class=\"sk-circle2 sk-circle\"></div>\n *      <div class=\"sk-circle3 sk-circle\"></div>\n *      <div class=\"sk-circle4 sk-circle\"></div>\n *      <div class=\"sk-circle5 sk-circle\"></div>\n *      <div class=\"sk-circle6 sk-circle\"></div>\n *      <div class=\"sk-circle7 sk-circle\"></div>\n *      <div class=\"sk-circle8 sk-circle\"></div>\n *      <div class=\"sk-circle9 sk-circle\"></div>\n *      <div class=\"sk-circle10 sk-circle\"></div>\n *      <div class=\"sk-circle11 sk-circle\"></div>\n *      <div class=\"sk-circle12 sk-circle\"></div>\n *    </div>\n *\n */\n.sk-fading-circle {\n  margin: 40px auto;\n  width: 40px;\n  height: 40px;\n  position: relative; }\n  .sk-fading-circle .sk-circle {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    left: 0;\n    top: 0; }\n  .sk-fading-circle .sk-circle:before {\n    content: '';\n    display: block;\n    margin: 0 auto;\n    width: 15%;\n    height: 15%;\n    background-color: #333;\n    border-radius: 100%;\n    -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;\n            animation: sk-circleFadeDelay 1.2s infinite ease-in-out both; }\n  .sk-fading-circle .sk-circle2 {\n    -webkit-transform: rotate(30deg);\n        -ms-transform: rotate(30deg);\n            transform: rotate(30deg); }\n  .sk-fading-circle .sk-circle3 {\n    -webkit-transform: rotate(60deg);\n        -ms-transform: rotate(60deg);\n            transform: rotate(60deg); }\n  .sk-fading-circle .sk-circle4 {\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  .sk-fading-circle .sk-circle5 {\n    -webkit-transform: rotate(120deg);\n        -ms-transform: rotate(120deg);\n            transform: rotate(120deg); }\n  .sk-fading-circle .sk-circle6 {\n    -webkit-transform: rotate(150deg);\n        -ms-transform: rotate(150deg);\n            transform: rotate(150deg); }\n  .sk-fading-circle .sk-circle7 {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .sk-fading-circle .sk-circle8 {\n    -webkit-transform: rotate(210deg);\n        -ms-transform: rotate(210deg);\n            transform: rotate(210deg); }\n  .sk-fading-circle .sk-circle9 {\n    -webkit-transform: rotate(240deg);\n        -ms-transform: rotate(240deg);\n            transform: rotate(240deg); }\n  .sk-fading-circle .sk-circle10 {\n    -webkit-transform: rotate(270deg);\n        -ms-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  .sk-fading-circle .sk-circle11 {\n    -webkit-transform: rotate(300deg);\n        -ms-transform: rotate(300deg);\n            transform: rotate(300deg); }\n  .sk-fading-circle .sk-circle12 {\n    -webkit-transform: rotate(330deg);\n        -ms-transform: rotate(330deg);\n            transform: rotate(330deg); }\n  .sk-fading-circle .sk-circle2:before {\n    -webkit-animation-delay: -1.1s;\n            animation-delay: -1.1s; }\n  .sk-fading-circle .sk-circle3:before {\n    -webkit-animation-delay: -1s;\n            animation-delay: -1s; }\n  .sk-fading-circle .sk-circle4:before {\n    -webkit-animation-delay: -0.9s;\n            animation-delay: -0.9s; }\n  .sk-fading-circle .sk-circle5:before {\n    -webkit-animation-delay: -0.8s;\n            animation-delay: -0.8s; }\n  .sk-fading-circle .sk-circle6:before {\n    -webkit-animation-delay: -0.7s;\n            animation-delay: -0.7s; }\n  .sk-fading-circle .sk-circle7:before {\n    -webkit-animation-delay: -0.6s;\n            animation-delay: -0.6s; }\n  .sk-fading-circle .sk-circle8:before {\n    -webkit-animation-delay: -0.5s;\n            animation-delay: -0.5s; }\n  .sk-fading-circle .sk-circle9:before {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .sk-fading-circle .sk-circle10:before {\n    -webkit-animation-delay: -0.3s;\n            animation-delay: -0.3s; }\n  .sk-fading-circle .sk-circle11:before {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .sk-fading-circle .sk-circle12:before {\n    -webkit-animation-delay: -0.1s;\n            animation-delay: -0.1s; }\n\n@-webkit-keyframes sk-circleFadeDelay {\n  0%, 39%, 100% {\n    opacity: 0; }\n  40% {\n    opacity: 1; } }\n\n@keyframes sk-circleFadeDelay {\n  0%, 39%, 100% {\n    opacity: 0; }\n  40% {\n    opacity: 1; } }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	__webpack_require__(32);
+
+	function spin() {
+	  return {
+	    restrict: 'AEC',
+	    scope: {},
+	    template: __webpack_require__(35)
+	  };
+	}
+
+	exports['default'] = _angular2['default'].module('spin', []).directive('spin', spin).name;
+	module.exports = exports['default'];
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = "<div class=\"spinner\">\n  <div class=\"rect1\"></div>\n  <div class=\"rect2\"></div>\n  <div class=\"rect3\"></div>\n  <div class=\"rect4\"></div>\n  <div class=\"rect5\"></div>\n</div>\n";
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var MenuController = (function () {
+	  function MenuController($facebook, $state, $scope) {
+	    _classCallCheck(this, MenuController);
+
+	    $scope.logout = this.logout;
+	  }
+
+	  _createClass(MenuController, [{
+	    key: 'logout',
+	    value: function logout() {
+	      $facebook.logout();
+	      $state.go('splash');
+	    }
+	  }]);
+
+	  return MenuController;
+	})();
+
+	exports['default'] = MenuController;
+
+	MenuController.$inject = ['$facebook', '$state', '$scope'];
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

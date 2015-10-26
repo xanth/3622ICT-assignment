@@ -18,7 +18,8 @@
     "jquery": "^2.1.4",
     "less": "^2.5.3",
     "lodash": "^3.10.1",
-    "ng-facebook": "^0.1.6"
+    "ng-facebook": "^0.1.6",
+    "spinkit": "^1.2.2"
   },
   "devDependencies": {
     "babel-loader": "^5.3.2",
