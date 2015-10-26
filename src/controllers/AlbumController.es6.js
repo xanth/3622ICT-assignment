@@ -13,18 +13,33 @@ export default class AlbumController {
           return image.name;
         };
 
-        FacebookGraph.images($stateParams.album, 320, (err, images) => {
-          if(err){
-            console.error(err, "error in facebook graph");
-          } else{
-            this.images = images;
-          }
-        });
+        this.fetchImages();
+    }
+
+    fetchImages(){
+      this.FacebookGraph.images(this.$stateParams.album, 320, (err, images) => {
+        if(err){
+          console.error(err, "error in facebook graph");
+        } else{
+          debugger;
+          this.images = images;
+        }
+      });
     }
 
   OpenLightboxModal(index) {
     this.Lightbox.openModal(this.images, index);
   };
+
+  like(objectId, $index){
+    this.FacebookGraph.like(objectId, (err, success) => {
+      if (success) {
+        this.fetchImages();
+      } else {
+        console.error( err );
+      }
+    });
+  }
 }
 
 AlbumController.$inject = ['FacebookGraph', 'Lightbox', '$state', '$stateParams'];

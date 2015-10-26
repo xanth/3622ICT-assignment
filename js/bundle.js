@@ -94,7 +94,7 @@
 	__webpack_require__(29);
 	__webpack_require__(30);
 
-	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']).controller('PostsController', _controllersAlbumControllerEs6Js2['default']);
+	_angular2['default'].module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLightbox']).run(_configFacebookEs6Js.facebookInit).config(_configFacebookEs6Js.facebookConfig).config(_configUirouterEs6Js2['default']).constant('defaultObjectID', '815157038515764').service('FacebookGraph', _servicesFacebookGraphEs6Js2['default']).controller('SplashController', _controllersSplashControllerEs6Js2['default']).controller('HomeController', _controllersHomeControllerEs6Js2['default']).controller('AlbumController', _controllersAlbumControllerEs6Js2['default']).controller('PostsController', _controllersPostsControllerEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -42169,6 +42169,7 @@
 
 	function facebookConfig($facebookProvider) {
 	  $facebookProvider.setAppId('904181319668743');
+	  $facebookProvider.setPermissions("publish_actions");
 	}
 
 	facebookInit.$inject = ['$rootScope'];
@@ -42257,7 +42258,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"image in album.images\" class=\"thumbnail\">\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{image.name}}</h3>\n        <p><a class=\"btn btn-primary\" role=\"button\">Like</a> Likes: {{image.likes}}</p>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"image in album.images\" class=\"thumbnail\">\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{image.name}}</h3>\n        <p><a class=\"btn btn-primary\" role=\"button\" ng-click=\"album.like(image.id, $index)\" >Like</a> Likes: {{image.likes.summary.total_count}}</p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 12 */
@@ -42317,9 +42318,9 @@
 	      var page = arguments.length <= 1 || arguments[1] === undefined ? this.defaultObjectID : arguments[1];
 	      var filter = arguments.length <= 2 || arguments[2] === undefined ? albumFilter : arguments[2];
 
-	      this.$facebook.api('/' + page + '/albums', 'GET', { "fields": "count,likes,location,cover_photo,name,description" }).then(function (albums) {
+	      this.$facebook.api('/' + page + '/albums', 'GET', { "fields": "location,cover_photo,name,description,likes.limit(1).summary(true)" }).then(function (albums) {
 	        var filteredAlbums = (0, _lodash2['default'])(albums.data).filter(filter).sortBy(function (album) {
-	          return album.likes.data.length;
+	          return album.likes.summary.total_count;
 	        }).reverse().value();
 	        var albumsWithCoverPic = _async2['default'].map(filteredAlbums, function (album, cb) {
 	          _this.imageInfo(album.cover_photo.id, function (err, image) {
@@ -42342,23 +42343,30 @@
 	    value: function images(album, height, ret) {
 	      var _this2 = this;
 
-	      this.$facebook.api('/' + album + '/photos', 'GET', { "fields": "likes,images,name" }).then(function (images) {
+	      this.$facebook.api('/' + album + '/photos', 'GET', { "fields": "images,name" }).then(function (images) {
 	        var filteredImages = (0, _lodash2['default'])(images.data).map(function (image) {
 	          return {
 	            thumb: (0, _lodash2['default'])(image.images).find(function (e) {
 	              return e.height == height;
 	            }),
 	            id: image.id,
-	            name: image.name,
-	            likes: image.likes.data.length
+	            name: image.name
 	          };
 	        }).value();
 	        console.log(filteredImages);
 	        _async2['default'].map(filteredImages, function (image, cb) {
 	          _this2.imageInfo(image.id, function (err, source) {
-	            if (image != null) {
+	            if (image != null && !err) {
 	              image.full = source;
-	              cb(null, image);
+	              _this2.likesInfo(image.id, function (err, likes) {
+	                if (!err) {
+	                  image.likes = likes;
+	                  cb(null, image);
+	                } else {
+	                  console.error("error in photo fetch");
+	                  cb(true, image);
+	                }
+	              });
 	            } else {
 	              console.error("error in photo fetch");
 	              cb(true, image);
@@ -42381,11 +42389,21 @@
 	      });
 	    }
 	  }, {
+	    key: 'likesInfo',
+	    value: function likesInfo(objectId, cb) {
+	      this.$facebook.api('/' + objectId + '/likes?summary=true', 'GET', { "fields": "" }).then(function (objectLikes) {
+	        cb(null, objectLikes);
+	      }, function (error) {
+	        console.error(error);
+	        return cb(error, null);
+	      });
+	    }
+	  }, {
 	    key: 'posts',
 	    value: function posts(ret) {
 	      var page = arguments.length <= 1 || arguments[1] === undefined ? this.defaultObjectID : arguments[1];
 
-	      this.$facebook.api('/' + page + '/feed', 'GET', { "fields": "likes{profile_type},message,name,status_type,from" }).then(function (posts) {
+	      this.$facebook.api('/' + page + '/feed', 'GET', { "fields": "likes{profile_type},message,name,status_type,from,likes.limit(1).summary(true)" }).then(function (posts) {
 	        ret(null, (0, _lodash2['default'])(posts.data).filter(function (post) {
 	          return post.status_type == "wall_post";
 	        }).filter(function (post) {
@@ -42396,6 +42414,16 @@
 	      }, function (error) {
 	        console.error(error);
 	        return cb(error, null);
+	      });
+	    }
+	  }, {
+	    key: 'like',
+	    value: function like(objectID, ret) {
+	      this.$facebook.api('/' + objectID + '/likes', 'POST').then(function (success) {
+	        console.log(success);
+	        ret(null, true);
+	      }, function (error) {
+	        ret(error, false);
 	      });
 	    }
 	  }]);
@@ -56257,13 +56285,13 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var HomeController = function HomeController(FacebookGraph, $state) {
 	  var _this = this;
@@ -56280,21 +56308,12 @@
 	      _this.albums = albums;
 	    }
 	  });
-
-	  FacebookGraph.posts(function (err, posts) {
-	    if (err) {
-	      console.error("error fetching messages");
-	    } else {
-	      console.log(posts);
-	      _this.posts = posts;
-	    }
-	  });
 	};
 
-	exports["default"] = HomeController;
+	exports['default'] = HomeController;
 
 	HomeController.$inject = ['FacebookGraph', '$state'];
-	module.exports = exports["default"];
+	module.exports = exports['default'];
 
 /***/ },
 /* 23 */
@@ -56312,8 +56331,6 @@
 
 	var AlbumController = (function () {
 	  function AlbumController(FacebookGraph, Lightbox, $state, $stateParams) {
-	    var _this = this;
-
 	    _classCallCheck(this, AlbumController);
 
 	    this.FacebookGraph = FacebookGraph;
@@ -56329,19 +56346,40 @@
 	      return image.name;
 	    };
 
-	    FacebookGraph.images($stateParams.album, 320, function (err, images) {
-	      if (err) {
-	        console.error(err, "error in facebook graph");
-	      } else {
-	        _this.images = images;
-	      }
-	    });
+	    this.fetchImages();
 	  }
 
 	  _createClass(AlbumController, [{
+	    key: 'fetchImages',
+	    value: function fetchImages() {
+	      var _this = this;
+
+	      this.FacebookGraph.images(this.$stateParams.album, 320, function (err, images) {
+	        if (err) {
+	          console.error(err, "error in facebook graph");
+	        } else {
+	          debugger;
+	          _this.images = images;
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'OpenLightboxModal',
 	    value: function OpenLightboxModal(index) {
 	      this.Lightbox.openModal(this.images, index);
+	    }
+	  }, {
+	    key: 'like',
+	    value: function like(objectId, $index) {
+	      var _this2 = this;
+
+	      this.FacebookGraph.like(objectId, function (err, success) {
+	        if (success) {
+	          _this2.fetchImages();
+	        } else {
+	          console.error(err);
+	        }
+	      });
 	    }
 	  }]);
 

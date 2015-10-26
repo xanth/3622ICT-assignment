@@ -26,4 +26,4 @@ angular.module('app', ['ngFacebook', 'ui.bootstrap', 'ui.router', 'bootstrapLigh
 .controller('SplashController', SplashController)
 .controller('HomeController', HomeController)
 .controller('AlbumController', AlbumController)
-.controller('PostsController', AlbumController);
+.controller('PostsController', PostsController);

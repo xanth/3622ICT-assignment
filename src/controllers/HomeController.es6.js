@@ -9,16 +9,7 @@ export default class HomeController {
           } else {
             this.albums = albums;
           }
-        });
-
-        FacebookGraph.posts((err, posts) => {
-          if(err){
-            console.error("error fetching messages");
-          } else {
-            console.log(posts)
-            this.posts = posts;
-          }
-        });
+        });  
     }
 }
 

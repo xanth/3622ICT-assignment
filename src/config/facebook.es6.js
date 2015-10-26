@@ -2,6 +2,7 @@ facebookConfig.$inject = [`$facebookProvider`];
 
 export function facebookConfig($facebookProvider) {
   $facebookProvider.setAppId(`904181319668743`);
+  $facebookProvider.setPermissions("publish_actions");
 }
 
 facebookInit.$inject = [`$rootScope`];
