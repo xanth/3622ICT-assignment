@@ -16,30 +16,53 @@ export default class AlbumController {
         this.fetchImages();
     }
 
+    // Fetches the images for the album in the address 
     fetchImages(){
       this.FacebookGraph.images(this.$stateParams.album, 320, (err, images) => {
         if(err){
           console.error(err, "error in facebook graph");
         } else{
-          debugger;
           this.images = images;
         }
       });
     }
 
-  OpenLightboxModal(index) {
-    this.Lightbox.openModal(this.images, index);
-  };
+    // Updats the scope object that represents each image
+    hasLiked($index){
+      this.FacebookGraph.hasLiked(this.images[$index].id, (err, response) => {
+        if(err){
+          console.error(err);
+        } else {
+          this.images[$index].hasLiked = response;
+        }
+      });
+    }
 
-  like(objectId, $index){
-    this.FacebookGraph.like(objectId, (err, success) => {
-      if (success) {
-        this.fetchImages();
+    //This method opens the light box at the index supplied
+    OpenLightboxModal(index) {
+      this.Lightbox.openModal(this.images, index);
+    };
+
+    // Gets called from the view to update facebook on the userers opinion
+    like(objectId, $index, liked) {
+      if(liked){
+        this.FacebookGraph.unLike(objectId, (err, success) => {
+          if (success) {
+            this.hasLiked($index);
+          } else {
+            console.error( err );
+          }
+        });
       } else {
-        console.error( err );
+        this.FacebookGraph.like(objectId, (err, success) => {
+          if (success) {
+            this.hasLiked($index);
+          } else {
+            console.error( err );
+          }
+        });
       }
-    });
-  }
+    }
 }
 
 AlbumController.$inject = ['FacebookGraph', 'Lightbox', '$state', '$stateParams'];

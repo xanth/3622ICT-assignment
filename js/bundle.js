@@ -42258,7 +42258,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"image in album.images\" class=\"thumbnail\">\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{image.name}}</h3>\n        <p><a class=\"btn btn-primary\" role=\"button\" ng-click=\"album.like(image.id, $index)\" >Like</a> Likes: {{image.likes.summary.total_count}}</p>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"image in album.images\" class=\"thumbnail\">\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{image.name}}</h3>\n        <p ng-init=\"album.hasLiked($index)\">\n          <a ng-if=\"!image.hasLiked && image.hasLiked != undefined\" class=\"btn btn-primary\" role=\"button\" ng-click=\"album.like(image.id, $index, image.hasLiked)\" >Like</a>\n          <a ng-if=\"image.hasLiked\" class=\"btn btn-primary\" role=\"button\" ng-click=\"album.unLike(image.id, $index, image.hasLiked)\" >Unlike</a>\n          Likes: {{image.likes.summary.total_count}}\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 12 */
@@ -42403,7 +42403,7 @@
 	    value: function posts(ret) {
 	      var page = arguments.length <= 1 || arguments[1] === undefined ? this.defaultObjectID : arguments[1];
 
-	      this.$facebook.api('/' + page + '/feed', 'GET', { "fields": "likes{profile_type},message,name,status_type,from,likes.limit(1).summary(true)" }).then(function (posts) {
+	      this.$facebook.api('/' + page + '/feed', 'GET', { "fields": "likes{profile_type},message,name,status_type,from" }).then(function (posts) {
 	        ret(null, (0, _lodash2['default'])(posts.data).filter(function (post) {
 	          return post.status_type == "wall_post";
 	        }).filter(function (post) {
@@ -42413,17 +42413,54 @@
 	        }).value());
 	      }, function (error) {
 	        console.error(error);
-	        return cb(error, null);
+	        ret(error, null);
 	      });
 	    }
 	  }, {
 	    key: 'like',
 	    value: function like(objectID, ret) {
 	      this.$facebook.api('/' + objectID + '/likes', 'POST').then(function (success) {
-	        console.log(success);
 	        ret(null, true);
 	      }, function (error) {
 	        ret(error, false);
+	      });
+	    }
+	  }, {
+	    key: 'unLike',
+	    value: function unLike(objectID, ret) {
+	      this.$facebook.api('/' + objectID + '/likes', 'DELETE').then(function (success) {
+	        ret(null, true);
+	      }, function (error) {
+	        ret(error, false);
+	      });
+	    }
+	  }, {
+	    key: 'hasLiked',
+	    value: function hasLiked(objectID, ret) {
+	      var _this3 = this;
+
+	      this.getMe(function (err, me) {
+	        if (err) {
+	          console.error(err);
+	        } else {
+	          _this3.$facebook.api('/' + objectID + '/likes', 'GET').then(function (likes) {
+	            var hasLiked = (0, _lodash2['default'])(likes.data).find(function (user) {
+	              return user.id == me.id;
+	            });
+	            ret(null, hasLiked ? true : false);
+	          }, function (error) {
+	            ret(error, null);
+	          });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'getMe',
+	    value: function getMe(cb) {
+	      this.$facebook.api("/me").then(function (me) {
+	        cb(null, me);
+	      }, function (err) {
+	        cb(err, null);
 	      });
 	    }
 	  }]);
@@ -56349,6 +56386,8 @@
 	    this.fetchImages();
 	  }
 
+	  // Fetches the images for the album in the address
+
 	  _createClass(AlbumController, [{
 	    key: 'fetchImages',
 	    value: function fetchImages() {
@@ -56358,11 +56397,27 @@
 	        if (err) {
 	          console.error(err, "error in facebook graph");
 	        } else {
-	          debugger;
 	          _this.images = images;
 	        }
 	      });
 	    }
+
+	    // Updats the scope object that represents each image
+	  }, {
+	    key: 'hasLiked',
+	    value: function hasLiked($index) {
+	      var _this2 = this;
+
+	      this.FacebookGraph.hasLiked(this.images[$index].id, function (err, response) {
+	        if (err) {
+	          console.error(err);
+	        } else {
+	          _this2.images[$index].hasLiked = response;
+	        }
+	      });
+	    }
+
+	    //This method opens the light box at the index supplied
 	  }, {
 	    key: 'OpenLightboxModal',
 	    value: function OpenLightboxModal(index) {
@@ -56370,16 +56425,28 @@
 	    }
 	  }, {
 	    key: 'like',
-	    value: function like(objectId, $index) {
-	      var _this2 = this;
 
-	      this.FacebookGraph.like(objectId, function (err, success) {
-	        if (success) {
-	          _this2.fetchImages();
-	        } else {
-	          console.error(err);
-	        }
-	      });
+	    // Gets called from the view to update facebook on the userers opinion
+	    value: function like(objectId, $index, liked) {
+	      var _this3 = this;
+
+	      if (liked) {
+	        this.FacebookGraph.unLike(objectId, function (err, success) {
+	          if (success) {
+	            _this3.hasLiked($index);
+	          } else {
+	            console.error(err);
+	          }
+	        });
+	      } else {
+	        this.FacebookGraph.like(objectId, function (err, success) {
+	          if (success) {
+	            _this3.hasLiked($index);
+	          } else {
+	            console.error(err);
+	          }
+	        });
+	      }
 	    }
 	  }]);
 

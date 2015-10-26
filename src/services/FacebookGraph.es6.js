@@ -87,7 +87,7 @@ export default class FacebookGraph {
   }
 
   posts(ret, page = this.defaultObjectID){
-    this.$facebook.api(`/${page}/feed`, 'GET', {"fields":"likes{profile_type},message,name,status_type,from,likes.limit(1).summary(true)"})
+    this.$facebook.api(`/${page}/feed`, 'GET', {"fields":"likes{profile_type},message,name,status_type,from"})
       .then((posts) => {
         ret(null, _(posts.data).filter((post) => {
           return post.status_type == "wall_post";
@@ -98,20 +98,53 @@ export default class FacebookGraph {
         }).value());
       }, (error) => {
         console.error(error);
-        return cb(error, null);
+        ret(error, null);
       });
   }
 
   like(objectID, ret){
     this.$facebook.api(`/${objectID}/likes`, 'POST')
       .then((success) => {
-        console.log(success);
         ret(null, true);
       }, (error) => {
         ret(error, false);
       });
   }
 
+  unLike(objectID, ret){
+    this.$facebook.api(`/${objectID}/likes`, 'DELETE')
+      .then((success) => {
+        ret(null, true);
+      }, (error) => {
+        ret(error, false);
+      });
+  }
+
+  hasLiked(objectID, ret){
+    this.getMe((err, me) => {
+      if(err){
+        console.error(err);
+      } else {
+        this.$facebook.api(`/${objectID}/likes`, 'GET')
+          .then((likes) => {
+            var hasLiked = _(likes.data).find((user) => { return user.id == me.id});
+            ret(null, hasLiked ? true : false);
+          }, (error) => {
+            ret(error, null);
+          });
+      }
+    });
+
+  }
+
+  getMe(cb){
+    this.$facebook.api("/me").then(
+      (me) => {
+        cb(null, me);
+      }, (err) => {
+        cb(err, null);
+      })
+  }
 }
 
 FacebookGraph.$inject = ['$facebook', 'defaultObjectID'];
