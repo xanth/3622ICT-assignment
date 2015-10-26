@@ -17,7 +17,6 @@ export default class AlbumController {
           if(err){
             console.error(err, "error in facebook graph");
           } else{
-            console.log(images);
             this.images = images;
           }
         });

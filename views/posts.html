@@ -1,11 +1,11 @@
 <div class="row">
-  <div ng-repeat="message in posts.messages">
-    
-    <figure>
-      <a ng-click="album.OpenLightboxModal($index)">
-        <img ng-src="{{image.thumb.source}}" alt="{{image.name}}"></img>
-      </a>
-      <figcaption>{{image.name}}</figcaption>
-    </figure>
+  <div class="col-sm-6 col-md-4">
+    <div ng-repeat="post in posts.posts" class="thumbnail">
+      <div class="caption">
+        <h3>{{post.from.name}}</h3>
+        <p>{{post.message}}</p>
+        <p>Likes: {{post.likes.data.length}}</p>
+      </div>
+    </div>
   </div>
 </div>

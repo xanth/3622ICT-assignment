@@ -8,7 +8,7 @@ export default class FacebookGraph {
   }
 
   albums(ret, page = this.defaultObjectID, filter = albumFilter){
-    this.$facebook.api(`/${page}/albums`, 'GET', {"fields":"count,likes,location,cover_photo,name"})
+    this.$facebook.api(`/${page}/albums`, 'GET', {"fields":"count,likes,location,cover_photo,name,description"})
       .then((albums) => {
         let filteredAlbums = _(albums.data).filter(filter).sortBy((album) => {
           return album.likes.data.length;
@@ -37,7 +37,8 @@ export default class FacebookGraph {
           return {
             thumb :  _(image.images).find((e) => { return e.height == height }),
             id    : image.id,
-            name  : image.name
+            name  : image.name,
+            likes : image.likes.data.length
           };
         }).value();
         console.log(filteredImages);
@@ -68,9 +69,22 @@ export default class FacebookGraph {
       });
   }
 
-  posts(filter, ret){
-
+  posts(ret, page = this.defaultObjectID){
+    this.$facebook.api(`/${page}/feed`, 'GET', {"fields":"likes{profile_type},message,name,status_type,from"})
+      .then((posts) => {
+        ret(null, _(posts.data).filter((post) => {
+          return post.status_type == "wall_post";
+        }).filter((post) => {
+          return post.likes ? _.find(post.likes.data, (like) => {
+            return like.profile_type == 'page'
+          }) : false;
+        }).value());
+      }, (error) => {
+        console.error(error);
+        return cb(error, null);
+      });
   }
+
 }
 
 FacebookGraph.$inject = ['$facebook', 'defaultObjectID'];

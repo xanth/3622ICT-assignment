@@ -6,8 +6,17 @@ export default class HomeController {
         FacebookGraph.albums((err, albums) => {
           if(err){
             console.error(err, "error in facebook graph");
-          } else{
+          } else {
             this.albums = albums;
+          }
+        });
+
+        FacebookGraph.posts((err, posts) => {
+          if(err){
+            console.error("error fetching messages");
+          } else {
+            console.log(posts)
+            this.posts = posts;
           }
         });
     }

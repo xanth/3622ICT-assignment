@@ -42251,25 +42251,25 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"album in home.albums\" class=\"thumbnail\">\n      <a ui-sref=\"album({ album: {{album.id}} })\">\n        <img ng-src=\"{{album.cover_photo.pic.source}}\" alt=\"{{album.cover_photo.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{album.location}}</h3>\n        <p></p>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"album in home.albums\" class=\"thumbnail\">\n      <a ui-sref=\"album({ album: {{album.id}} })\">\n        <img ng-src=\"{{album.cover_photo.pic.source}}\" alt=\"{{album.cover_photo.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{album.location}}</h3>\n        <p>{{album.description}}</p>\n        <p></p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"image in album.images\" class=\"thumbnail\">\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{image.name}}</h3>\n        <p></p>\n        <p><a class=\"btn btn-primary\" role=\"button\">Like</a> Likes: {{image.likes.data.length}}</p>\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"image in album.images\" class=\"thumbnail\">\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\">\n      </a>\n      <div class=\"caption\">\n        <h3>{{image.name}}</h3>\n        <p><a class=\"btn btn-primary\" role=\"button\">Like</a> Likes: {{image.likes}}</p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n  <div ng-repeat=\"message in posts.messages\">\n    \n    <figure>\n      <a ng-click=\"album.OpenLightboxModal($index)\">\n        <img ng-src=\"{{image.thumb.source}}\" alt=\"{{image.name}}\"></img>\n      </a>\n      <figcaption>{{image.name}}</figcaption>\n    </figure>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6 col-md-4\">\n    <div ng-repeat=\"post in posts.posts\" class=\"thumbnail\">\n      <div class=\"caption\">\n        <h3>{{post.from.name}}</h3>\n        <p>{{post.message}}</p>\n        <p>Likes: {{post.likes.data.length}}</p>\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n</div>\n";
+	module.exports = "<div class=\"row\">\n  <h1>Rhys Williams</h1>\n  <h3>S2901277</h3>\n</div>\n";
 
 /***/ },
 /* 14 */
@@ -42317,7 +42317,7 @@
 	      var page = arguments.length <= 1 || arguments[1] === undefined ? this.defaultObjectID : arguments[1];
 	      var filter = arguments.length <= 2 || arguments[2] === undefined ? albumFilter : arguments[2];
 
-	      this.$facebook.api('/' + page + '/albums', 'GET', { "fields": "count,likes,location,cover_photo,name" }).then(function (albums) {
+	      this.$facebook.api('/' + page + '/albums', 'GET', { "fields": "count,likes,location,cover_photo,name,description" }).then(function (albums) {
 	        var filteredAlbums = (0, _lodash2['default'])(albums.data).filter(filter).sortBy(function (album) {
 	          return album.likes.data.length;
 	        }).reverse().value();
@@ -42349,7 +42349,8 @@
 	              return e.height == height;
 	            }),
 	            id: image.id,
-	            name: image.name
+	            name: image.name,
+	            likes: image.likes.data.length
 	          };
 	        }).value();
 	        console.log(filteredImages);
@@ -42381,7 +42382,22 @@
 	    }
 	  }, {
 	    key: 'posts',
-	    value: function posts(filter, ret) {}
+	    value: function posts(ret) {
+	      var page = arguments.length <= 1 || arguments[1] === undefined ? this.defaultObjectID : arguments[1];
+
+	      this.$facebook.api('/' + page + '/feed', 'GET', { "fields": "likes{profile_type},message,name,status_type,from" }).then(function (posts) {
+	        ret(null, (0, _lodash2['default'])(posts.data).filter(function (post) {
+	          return post.status_type == "wall_post";
+	        }).filter(function (post) {
+	          return post.likes ? _lodash2['default'].find(post.likes.data, function (like) {
+	            return like.profile_type == 'page';
+	          }) : false;
+	        }).value());
+	      }, function (error) {
+	        console.error(error);
+	        return cb(error, null);
+	      });
+	    }
 	  }]);
 
 	  return FacebookGraph;
@@ -56241,13 +56257,13 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var HomeController = function HomeController(FacebookGraph, $state) {
 	  var _this = this;
@@ -56264,12 +56280,21 @@
 	      _this.albums = albums;
 	    }
 	  });
+
+	  FacebookGraph.posts(function (err, posts) {
+	    if (err) {
+	      console.error("error fetching messages");
+	    } else {
+	      console.log(posts);
+	      _this.posts = posts;
+	    }
+	  });
 	};
 
-	exports['default'] = HomeController;
+	exports["default"] = HomeController;
 
 	HomeController.$inject = ['FacebookGraph', '$state'];
-	module.exports = exports['default'];
+	module.exports = exports["default"];
 
 /***/ },
 /* 23 */
@@ -56308,7 +56333,6 @@
 	      if (err) {
 	        console.error(err, "error in facebook graph");
 	      } else {
-	        console.log(images);
 	        _this.images = images;
 	      }
 	    });
@@ -56350,11 +56374,11 @@
 	  this.$state = $state;
 	  this.$stateParams = $stateParams;
 
-	  FacebookGraph.Messages(function (err, messages) {
+	  FacebookGraph.posts(function (err, posts) {
 	    if (err) {
 	      console.error("error fetching messages");
 	    } else {
-	      _this.messages = messages;
+	      _this.posts = posts;
 	    }
 	  });
 	};

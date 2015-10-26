@@ -3,12 +3,12 @@ export default class PostsController {
         this.FacebookGraph  = FacebookGraph;
         this.$state         = $state;
         this.$stateParams   = $stateParams;
-
-        FacebookGraph.Messages((err, messages) => {
+        
+        FacebookGraph.posts((err, posts) => {
           if(err){
             console.error("error fetching messages");
           } else {
-            this.messages = messages;
+            this.posts = posts;
           }
         });
     }
